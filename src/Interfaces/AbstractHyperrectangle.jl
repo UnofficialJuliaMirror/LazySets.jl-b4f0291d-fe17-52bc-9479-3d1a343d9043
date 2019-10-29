@@ -301,10 +301,7 @@ function ρ(d::AbstractVector{N}, H::AbstractHyperrectangle{N}) where {N<:Real}
     return res
 end
 
-"""
-
-Faster hyperrectangle support function with SingleEntryVector direction
-"""
+# Faster hyperrectangle support function with SingleEntryVector direction.
 function ρ(d::SingleEntryVector{N}, H::AbstractHyperrectangle{N}) where {N<:Real}
     @assert d.n == dim(H) "a $(d.n)-dimensional vector is " *
                                 "incompatible with a $(dim(H))-dimensional set"
