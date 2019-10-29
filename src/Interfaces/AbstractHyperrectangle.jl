@@ -302,6 +302,21 @@ function ρ(d::AbstractVector{N}, H::AbstractHyperrectangle{N}) where {N<:Real}
 end
 
 """
+
+Faster hyperrectangle support function with SingleEntryVector direction
+"""
+function ρ(d::SingleEntryVector{N}, H::AbstractHyperrectangle{N}) where {N<:Real}
+    @assert d.n == dim(H) "a $(d.n)-dimensional vector is " *
+                                "incompatible with a $(dim(H))-dimensional set"
+    c = center(H)
+    if d.v < zero(N)
+        return d.v * (c[d.i] - radius_hyperrectangle(H, d.i))
+    else
+        return d.v * (c[d.i] + radius_hyperrectangle(H, d.i))
+    end
+end
+
+"""
     norm(H::AbstractHyperrectangle, [p]::Real=Inf)::Real
 
 Return the norm of a hyperrectangular set.
